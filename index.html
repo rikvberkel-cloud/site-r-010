@@ -6,11 +6,11 @@
 
   <!-- SEO -->
   <title>R-010 — DJ uit Rotterdam | Boekingen</title>
-  <meta name="description" content="R-010 aka Spliff Daddy — DJ uit Rotterdam. Beschikbaar voor boekingen. Onkostenvergoeding is genoeg.">
+  <meta name="description" content="R-010 aka Spliff Daddy — DJ uit Rotterdam. 90's dance, Italo disco, UK garage & Hard Tech. Beschikbaar voor boekingen.">
 
   <!-- Open Graph -->
   <meta property="og:title" content="R-010 — DJ uit Rotterdam">
-  <meta property="og:description" content="Spliff Daddy. Beschikbaar voor boekingen.">
+  <meta property="og:description" content="Spliff Daddy. 90's dance, Italo disco, UK garage & Hard Tech.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/hero.jpg">
 
@@ -35,6 +35,16 @@
       <!-- KEUZE 2 (verberg of wissel):
       <p class="hero__tagline">Geen socials. Geen ego. Wel de juiste plaat op het juiste moment.</p>
       -->
+
+      <!-- GENRE TAGS -->
+      <div class="genre-tags">
+        <!-- TODO: Vervang # door je Spotify playlist URLs -->
+        <a href="#" class="genre-tag" target="_blank" rel="noopener" aria-label="90's Dance playlist op Spotify">90's Dance</a>
+        <a href="#" class="genre-tag" target="_blank" rel="noopener" aria-label="Italo Disco playlist op Spotify">Italo Disco</a>
+        <a href="#" class="genre-tag" target="_blank" rel="noopener" aria-label="UK Garage playlist op Spotify">UK Garage</a>
+        <a href="#" class="genre-tag" target="_blank" rel="noopener" aria-label="Hard Tech playlist op Spotify">Hard Tech</a>
+      </div>
+
       <a href="#contact" class="btn btn--primary" aria-label="Scroll naar boekingssectie">Boek R-010</a>
     </div>
   </section>
@@ -62,7 +72,29 @@
         <div class="about-text fade-in">
           <p>Liefhebber.</p>
           <p>Eigenlijk altijd al DJ geweest.</p>
-          <p>DJ zijn vraagt: <span class="text-cyan">Looks</span>, <span class="text-cyan">Image</span>, <span class="text-cyan">Song selection</span>, <span class="text-red">Techniek</span>.</p>
+          <p>DJ zijn vraagt vier dingen:</p>
+
+          <!-- VISUELE SKILL TREE -->
+          <div class="skill-tree" aria-label="DJ skill tree: Looks, Image en Song selection op groen, Techniek op rood">
+            <div class="skill-tree__top">
+              <div class="skill-box skill-box--result">Je bent een DJ</div>
+            </div>
+            <div class="skill-tree__connector" aria-hidden="true">
+              <div class="connector-line connector-line--vertical"></div>
+              <div class="connector-line connector-line--horizontal"></div>
+              <div class="connector-line connector-line--drop connector-line--drop-1"></div>
+              <div class="connector-line connector-line--drop connector-line--drop-2"></div>
+              <div class="connector-line connector-line--drop connector-line--drop-3"></div>
+              <div class="connector-line connector-line--drop connector-line--drop-4"></div>
+            </div>
+            <div class="skill-tree__bottom">
+              <div class="skill-box skill-box--green">Looks</div>
+              <div class="skill-box skill-box--green">Image</div>
+              <div class="skill-box skill-box--green">Song selection</div>
+              <div class="skill-box skill-box--red">Techniek</div>
+            </div>
+          </div>
+
           <p>1–3 staan op groen en de laatste staat op rood.</p>
           <p>Samen gevat: je bent het dan eigenlijk al. Je moet alleen nog leren draaien. En dat ben ik aan het doen.</p>
         </div>
@@ -77,38 +109,111 @@
     <div class="container">
       <h2 class="section__heading neon-text">Rotterdam</h2>
       <div class="fade-in">
-        <p>Voor de liefde naar Rotterdam.</p>
-        <p>Maar verliefd geworden op Rotterdam.</p>
+        <p>Ging voor de liefde naar Rotterdam.</p>
+        <p>En werd ook verliefd op de stad.</p>
+        <p class="text-muted rotterdam-sub">Polyamorie, maar dan met een 010-netnummer.</p>
+        <p class="rotterdam-icons">Rotterdam heeft veel moois voortgebracht. Jules Deelder, Sparta, de Vengaboys — en nu R-010.</p>
       </div>
     </div>
   </section>
 
   <!-- ============================================
-       EERDERE OPTREDENS
+       EERDERE OPTREDENS (carrousel)
        ============================================ -->
   <section class="section" id="optredens">
     <div class="container">
       <h2 class="section__heading neon-text">Eerdere optredens</h2>
-      <div class="gigs-grid fade-in">
 
-        <!-- FOTO: vervang assets/gig.jpg door je eigen foto (zelfde bestandsnaam houden) -->
-        <div class="photo-frame" id="photo-gig">
-          <img
-            src="assets/gig.jpg"
-            alt="Foto van optreden"
-            class="photo-frame__img"
-            loading="lazy"
-            onerror="this.parentElement.classList.add('photo-frame--fallback')"
-          >
-          <div class="photo-frame__placeholder" aria-hidden="true">gig.jpg</div>
+      <!-- FOTO CARROUSEL -->
+      <div class="carousel fade-in" aria-label="Foto's van optredens">
+        <div class="carousel__track" id="carouselTrack">
+
+          <!--
+            OPTREDEN 1: Yearly bedrijf
+            FOTO: vervang assets/gig.jpg (zelfde bestandsnaam houden)
+          -->
+          <div class="carousel__slide" data-gig="Yearly — bedrijfsfeest">
+            <div class="photo-frame photo-frame--landscape">
+              <img
+                src="assets/gig.jpg"
+                alt="Foto van optreden — Yearly bedrijfsfeest"
+                class="photo-frame__img"
+                loading="lazy"
+                onerror="this.parentElement.classList.add('photo-frame--fallback')"
+              >
+              <div class="photo-frame__placeholder" aria-hidden="true">gig.jpg</div>
+            </div>
+            <p class="carousel__caption">Yearly — bedrijfsfeest</p>
+          </div>
+
+          <!--
+            OPTREDEN 2: Familieweekend 2026
+            FOTO: vervang assets/gig-2.jpg (zelfde bestandsnaam houden)
+          -->
+          <div class="carousel__slide" data-gig="Familieweekend 2026">
+            <div class="photo-frame photo-frame--landscape">
+              <img
+                src="assets/gig-2.jpg"
+                alt="Foto van optreden — Familieweekend 2026"
+                class="photo-frame__img"
+                loading="lazy"
+                onerror="this.parentElement.classList.add('photo-frame--fallback')"
+              >
+              <div class="photo-frame__placeholder" aria-hidden="true">gig-2.jpg</div>
+            </div>
+            <p class="carousel__caption">Familieweekend 2026</p>
+          </div>
+
+          <!--
+            MEER OPTREDENS TOEVOEGEN:
+            Kopieer een <div class="carousel__slide"> blok hierboven,
+            voeg een nieuwe afbeelding toe als assets/gig-3.jpg, etc.
+          -->
         </div>
 
-        <div>
-          <ul class="gig-list">
-            <!-- Voeg hier meer optredens toe als <li> -->
-            <li>Familieweekend 2026</li>
-          </ul>
+        <!-- Carrousel navigatie -->
+        <div class="carousel__nav">
+          <button class="carousel__btn carousel__btn--prev" id="carouselPrev" aria-label="Vorige foto">&#8592;</button>
+          <div class="carousel__dots" id="carouselDots"></div>
+          <button class="carousel__btn carousel__btn--next" id="carouselNext" aria-label="Volgende foto">&#8594;</button>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FAQ
+       ============================================ -->
+  <section class="section section--alt" id="faq">
+    <div class="container">
+      <h2 class="section__heading neon-text">FAQ</h2>
+      <div class="faq-list fade-in">
+
+        <details class="faq-item">
+          <summary class="faq-question">Wat voor muziek draai je?</summary>
+          <p class="faq-answer">90's Dance, Italo Disco, UK Garage en Hard Tech. Vier smaken, één vibe. Kijk bij de genre-tags bovenaan voor mijn Spotify playlists.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">Wat voor feesten doe je?</summary>
+          <p class="faq-answer">Van huiskamers tot bedrijfsfeesten, van familieweekenden tot tuinfeesten. Als er een stekker is, ben ik er.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">Heb je eigen apparatuur?</summary>
+          <p class="faq-answer">Ik heb een basis DJ-setup. Voor grotere evenementen is het handig als er al een geluidsinstallatie staat. We stemmen het van tevoren even af.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">Wat kost het?</summary>
+          <p class="faq-answer">Onkostenvergoeding is genoeg. Ik hoef er niets aan te verdienen. Ik ben vooral op zoek naar liefde en aandacht.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">Hoe ver van tevoren moet ik boeken?</summary>
+          <p class="faq-answer">Liefst een paar weken, maar last-minute is ook bespreekbaar. Stuur een mailtje en we kijken wat er kan.</p>
+        </details>
+
       </div>
     </div>
   </section>
@@ -116,7 +221,7 @@
   <!-- ============================================
        CONTACT / BOEKEN
        ============================================ -->
-  <section class="section section--alt" id="contact">
+  <section class="section" id="contact">
     <div class="container">
       <h2 class="section__heading neon-text">Boeken / Contact</h2>
       <div class="contact-block fade-in">
