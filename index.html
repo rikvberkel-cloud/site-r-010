@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <title>R-010 — DJ uit Rotterdam | Boekingen</title>
+  <meta name="description" content="R-010 aka Spliff Daddy — DJ uit Rotterdam. Beschikbaar voor boekingen. Onkostenvergoeding is genoeg.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="R-010 — DJ uit Rotterdam">
+  <meta property="og:description" content="Spliff Daddy. Beschikbaar voor boekingen.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/hero.jpg">
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================
+       HERO
+       ============================================ -->
+  <section class="hero" id="hero">
+    <div class="hero__content">
+      <h1 class="hero__title neon-text">R-010</h1>
+      <p class="hero__subtitle">Spliff Daddy</p>
+      <!-- KEUZE 1: -->
+      <p class="hero__tagline">Rotterdam's finest — draait met liefde, boekt zonder poespas.</p>
+      <!-- KEUZE 2 (verberg of wissel):
+      <p class="hero__tagline">Geen socials. Geen ego. Wel de juiste plaat op het juiste moment.</p>
+      -->
+      <a href="#contact" class="btn btn--primary" aria-label="Scroll naar boekingssectie">Boek R-010</a>
+    </div>
+  </section>
+
+  <!-- ============================================
+       OVER MIJ
+       ============================================ -->
+  <section class="section" id="over">
+    <div class="container">
+      <h2 class="section__heading neon-text">Over mij</h2>
+      <div class="about-grid">
+
+        <!-- FOTO: vervang assets/hero.jpg door je eigen foto (zelfde bestandsnaam houden) -->
+        <div class="photo-frame" id="photo-about">
+          <img
+            src="assets/hero.jpg"
+            alt="Portretfoto van R-010"
+            class="photo-frame__img"
+            loading="lazy"
+            onerror="this.parentElement.classList.add('photo-frame--fallback')"
+          >
+          <div class="photo-frame__placeholder" aria-hidden="true">hero.jpg</div>
+        </div>
+
+        <div class="about-text fade-in">
+          <p>Liefhebber.</p>
+          <p>Eigenlijk altijd al DJ geweest.</p>
+          <p>DJ zijn vraagt: <span class="text-cyan">Looks</span>, <span class="text-cyan">Image</span>, <span class="text-cyan">Song selection</span>, <span class="text-red">Techniek</span>.</p>
+          <p>1–3 staan op groen en de laatste staat op rood.</p>
+          <p>Samen gevat: je bent het dan eigenlijk al. Je moet alleen nog leren draaien. En dat ben ik aan het doen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       ROTTERDAM
+       ============================================ -->
+  <section class="section section--alt" id="rotterdam">
+    <div class="container">
+      <h2 class="section__heading neon-text">Rotterdam</h2>
+      <div class="fade-in">
+        <p>Voor de liefde naar Rotterdam.</p>
+        <p>Maar verliefd geworden op Rotterdam.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       EERDERE OPTREDENS
+       ============================================ -->
+  <section class="section" id="optredens">
+    <div class="container">
+      <h2 class="section__heading neon-text">Eerdere optredens</h2>
+      <div class="gigs-grid fade-in">
+
+        <!-- FOTO: vervang assets/gig.jpg door je eigen foto (zelfde bestandsnaam houden) -->
+        <div class="photo-frame" id="photo-gig">
+          <img
+            src="assets/gig.jpg"
+            alt="Foto van optreden"
+            class="photo-frame__img"
+            loading="lazy"
+            onerror="this.parentElement.classList.add('photo-frame--fallback')"
+          >
+          <div class="photo-frame__placeholder" aria-hidden="true">gig.jpg</div>
+        </div>
+
+        <div>
+          <ul class="gig-list">
+            <!-- Voeg hier meer optredens toe als <li> -->
+            <li>Familieweekend 2026</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       CONTACT / BOEKEN
+       ============================================ -->
+  <section class="section section--alt" id="contact">
+    <div class="container">
+      <h2 class="section__heading neon-text">Boeken / Contact</h2>
+      <div class="contact-block fade-in">
+        <p>Boekingen via mail:</p>
+
+        <!--
+          TODO: Vervang het mailadres hieronder.
+          Verander ALLEEN de tekst in het <span> element.
+          De mailto-link en kopieerknop passen zich automatisch aan.
+        -->
+        <p class="contact-email">
+          <a href="#" class="email-link" id="emailLink" aria-label="Stuur een mail naar R-010">
+            <span id="emailAddress">boekingen@r-010.nl</span>
+          </a>
+        </p>
+
+        <div class="contact-actions">
+          <button class="btn btn--secondary" id="copyBtn" aria-label="Kopieer mailadres">
+            Kopieer mailadres
+          </button>
+        </div>
+
+        <div class="contact-info">
+          <p>Snelle afstemming, makkelijk in de omgang.</p>
+          <p>Onkostenvergoeding is genoeg. Ik hoef er niets aan te verdienen.</p>
+          <p>Ik ben vooral op zoek naar liefde en aandacht.</p>
+        </div>
+
+        <a href="#contact" class="btn btn--primary">Boek R-010</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer class="footer">
+    <p>&copy; R-010 — Rotterdam</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
