@@ -114,7 +114,149 @@
   }
 
   /* ------------------------------------------
-     4. FADE-IN ON SCROLL (IntersectionObserver)
+     4. LIGHTBOX
+     ------------------------------------------ */
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightboxImg');
+  var lightboxClose = document.getElementById('lightboxClose');
+
+  function openLightbox(src, alt) {
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || '';
+    lightbox.hidden = false;
+    // Force reflow then add visible class for transition
+    lightbox.offsetHeight;
+    lightbox.classList.add('lightbox--visible');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('lightbox--visible');
+    document.body.style.overflow = '';
+    setTimeout(function () {
+      lightbox.hidden = true;
+      lightboxImg.src = '';
+    }, 300);
+  }
+
+  // Click on photo frames with data-lightbox
+  document.querySelectorAll('[data-lightbox]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      var src = this.getAttribute('data-lightbox');
+      var img = this.querySelector('img');
+      // Only open if image is loaded (not fallback)
+      if (img && !this.classList.contains('photo-frame--fallback')) {
+        openLightbox(src, img.alt);
+      }
+    });
+  });
+
+  if (lightboxClose) {
+    lightboxClose.addEventListener('click', closeLightbox);
+  }
+
+  // Close on backdrop click
+  if (lightbox) {
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+  }
+
+  // Close on Escape
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && lightbox && !lightbox.hidden) {
+      closeLightbox();
+    }
+  });
+
+  /* ------------------------------------------
+     5. CURSOR GLOW (desktop only)
+     ------------------------------------------ */
+  var cursorGlow = document.getElementById('cursorGlow');
+  var isTouch = window.matchMedia('(hover: none)').matches;
+
+  if (cursorGlow && !isTouch) {
+    var glowX = 0, glowY = 0, currentX = 0, currentY = 0;
+    var glowActive = false;
+
+    document.addEventListener('mousemove', function (e) {
+      glowX = e.clientX;
+      glowY = e.clientY;
+      if (!glowActive) {
+        glowActive = true;
+        cursorGlow.classList.add('cursor-glow--visible');
+        updateGlow();
+      }
+    });
+
+    document.addEventListener('mouseleave', function () {
+      glowActive = false;
+      cursorGlow.classList.remove('cursor-glow--visible');
+    });
+
+    function updateGlow() {
+      if (!glowActive) return;
+      // Smooth interpolation
+      currentX += (glowX - currentX) * 0.15;
+      currentY += (glowY - currentY) * 0.15;
+      cursorGlow.style.left = currentX + 'px';
+      cursorGlow.style.top = currentY + 'px';
+      requestAnimationFrame(updateGlow);
+    }
+  }
+
+  /* ------------------------------------------
+     6. PARALLAX SCROLLING
+     ------------------------------------------ */
+  var parallaxSections = document.querySelectorAll('[data-parallax]');
+
+  if (parallaxSections.length > 0 && !isTouch) {
+    var ticking = false;
+
+    function updateParallax() {
+      var scrollY = window.scrollY;
+      parallaxSections.forEach(function (section) {
+        var speed = parseFloat(section.getAttribute('data-parallax'));
+        var rect = section.getBoundingClientRect();
+        var offset = (scrollY - section.offsetTop) * speed;
+        var content = section.querySelector('.hero__content, .container');
+        if (content) {
+          content.style.transform = 'translateY(' + offset + 'px)';
+        }
+      });
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  /* ------------------------------------------
+     7. SKILL TREE SCROLL ANIMATION
+     ------------------------------------------ */
+  var skillTree = document.querySelector('.skill-tree--animate');
+
+  if (skillTree && 'IntersectionObserver' in window) {
+    var skillObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('skill-tree--visible');
+          skillObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    skillObserver.observe(skillTree);
+  } else if (skillTree) {
+    skillTree.classList.add('skill-tree--visible');
+  }
+
+  /* ------------------------------------------
+     8. FADE-IN ON SCROLL (IntersectionObserver)
      ------------------------------------------ */
   if ('IntersectionObserver' in window) {
     var observer = new IntersectionObserver(function (entries) {

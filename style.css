@@ -38,6 +38,7 @@ body {
   color: var(--text-main);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -49,6 +50,68 @@ img { max-width: 100%; display: block; }
   max-width: 860px;
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+
+/* ============================================
+   SCANLINES OVERLAY (CRT effect)
+   ============================================ */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, .03) 0px,
+    rgba(0, 0, 0, .03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* ============================================
+   NOISE TEXTURE OVERLAY
+   ============================================ */
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  pointer-events: none;
+  opacity: .04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ============================================
+   CURSOR GLOW (desktop only)
+   ============================================ */
+.cursor-glow {
+  position: fixed;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 229, 255, .08) 0%,
+    rgba(230, 255, 0, .04) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 9996;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity .3s ease;
+  will-change: transform;
+}
+
+.cursor-glow--visible {
+  opacity: 1;
+}
+
+/* Hide cursor glow on touch devices */
+@media (hover: none) {
+  .cursor-glow { display: none; }
 }
 
 /* ---- NEON TEXT ---- */
@@ -69,6 +132,61 @@ img { max-width: 100%; display: block; }
 
 .text-muted {
   color: var(--text-muted);
+}
+
+/* ============================================
+   GRADIENT TEXT (cyan → yellow)
+   ============================================ */
+.gradient-text {
+  background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-yellow) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* glow uses a blurred pseudo-element */
+  position: relative;
+}
+
+.gradient-text::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-yellow) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: blur(12px);
+  opacity: .5;
+  z-index: -1;
+}
+
+/* ============================================
+   GLOW PULSE (breathing neon borders)
+   ============================================ */
+.glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite alternate;
+}
+
+.glow-pulse--green {
+  animation-name: glowPulseGreen;
+}
+
+.glow-pulse--red {
+  animation-name: glowPulseRed;
+}
+
+@keyframes glowPulse {
+  0%   { box-shadow: 0 0 6px rgba(0, 229, 255, .4), 0 0 16px rgba(0, 229, 255, .15); }
+  100% { box-shadow: 0 0 12px rgba(0, 229, 255, .7), 0 0 36px rgba(0, 229, 255, .3); }
+}
+
+@keyframes glowPulseGreen {
+  0%   { box-shadow: 0 0 6px rgba(57, 255, 20, .3), 0 0 16px rgba(57, 255, 20, .1); }
+  100% { box-shadow: 0 0 12px rgba(57, 255, 20, .6), 0 0 36px rgba(57, 255, 20, .25); }
+}
+
+@keyframes glowPulseRed {
+  0%   { box-shadow: 0 0 6px rgba(255, 51, 72, .3), 0 0 16px rgba(255, 51, 72, .1); }
+  100% { box-shadow: 0 0 12px rgba(255, 51, 72, .6), 0 0 36px rgba(255, 51, 72, .25); }
 }
 
 /* ============================================
@@ -109,8 +227,6 @@ img { max-width: 100%; display: block; }
 
 .hero__subtitle {
   font-size: clamp(1.2rem, 3vw, 2rem);
-  color: var(--neon-cyan);
-  text-shadow: var(--glow-cyan);
   margin-top: .5rem;
   font-weight: 600;
 }
@@ -161,7 +277,6 @@ img { max-width: 100%; display: block; }
   box-shadow: var(--glow-cyan);
 }
 
-/* Disable genre links als href="#" (nog geen playlist URL) */
 .genre-tag[href="#"] {
   pointer-events: none;
   cursor: default;
@@ -219,7 +334,6 @@ img { max-width: 100%; display: block; }
   color: var(--bg-dark);
 }
 
-/* feedback state after copy */
 .btn--copied {
   border-color: var(--neon-yellow) !important;
   color: var(--neon-yellow) !important;
@@ -232,6 +346,7 @@ img { max-width: 100%; display: block; }
    ============================================ */
 .section {
   padding: 5rem 0;
+  position: relative;
 }
 
 .section--alt {
@@ -272,6 +387,46 @@ img { max-width: 100%; display: block; }
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Animation: hidden by default, JS adds --visible */
+.skill-tree--animate .skill-tree__top,
+.skill-tree--animate .skill-tree__connector,
+.skill-tree--animate .skill-box--green,
+.skill-tree--animate .skill-box--red {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .4s ease, transform .4s ease;
+}
+
+.skill-tree--animate.skill-tree--visible .skill-tree__top {
+  opacity: 1; transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.skill-tree--animate.skill-tree--visible .skill-tree__connector {
+  opacity: 1; transform: translateY(0);
+  transition-delay: .3s;
+}
+
+.skill-tree--animate.skill-tree--visible .skill-tree__bottom .skill-box:nth-child(1) {
+  opacity: 1; transform: translateY(0);
+  transition-delay: .5s;
+}
+
+.skill-tree--animate.skill-tree--visible .skill-tree__bottom .skill-box:nth-child(2) {
+  opacity: 1; transform: translateY(0);
+  transition-delay: .65s;
+}
+
+.skill-tree--animate.skill-tree--visible .skill-tree__bottom .skill-box:nth-child(3) {
+  opacity: 1; transform: translateY(0);
+  transition-delay: .8s;
+}
+
+.skill-tree--animate.skill-tree--visible .skill-tree__bottom .skill-box:nth-child(4) {
+  opacity: 1; transform: translateY(0);
+  transition-delay: 1s;
 }
 
 .skill-tree__top {
@@ -365,11 +520,15 @@ img { max-width: 100%; display: block; }
   border-radius: 6px;
   overflow: hidden;
   position: relative;
-  box-shadow: var(--glow-cyan);
 }
 
 .photo-frame--landscape {
   aspect-ratio: 16 / 10;
+}
+
+/* Clickable photo frames (lightbox) */
+.photo-frame[data-lightbox] {
+  cursor: pointer;
 }
 
 .photo-frame__img {
@@ -389,7 +548,6 @@ img { max-width: 100%; display: block; }
   align-items: center;
 }
 
-/* Als de afbeelding niet laadt, toon placeholder */
 .photo-frame--fallback .photo-frame__img {
   display: none;
 }
@@ -492,6 +650,91 @@ img { max-width: 100%; display: block; }
 .carousel__dot--active {
   background: var(--neon-cyan);
   box-shadow: var(--glow-cyan);
+}
+
+/* ============================================
+   LIGHTBOX
+   ============================================ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, .92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox--visible {
+  opacity: 1;
+}
+
+.lightbox__img {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border: 3px solid var(--neon-cyan);
+  border-radius: 8px;
+  box-shadow:
+    0 0 20px rgba(0, 229, 255, .5),
+    0 0 60px rgba(0, 229, 255, .2);
+  animation: glowPulse 3s ease-in-out infinite alternate;
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  color: var(--neon-yellow);
+  font-size: 2.5rem;
+  cursor: pointer;
+  text-shadow: var(--glow-yellow);
+  line-height: 1;
+  transition: transform .2s ease;
+}
+
+.lightbox__close:hover {
+  transform: scale(1.2);
+}
+
+/* ============================================
+   SPOTIFY EMBEDS
+   ============================================ */
+.spotify-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .spotify-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.spotify-embed {
+  border: 1px solid rgba(0, 229, 255, .15);
+  border-radius: 14px;
+  padding: .75rem;
+  background: rgba(0, 229, 255, .03);
+}
+
+.spotify-label {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--neon-cyan);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: .5rem;
 }
 
 /* ============================================
@@ -612,7 +855,9 @@ img { max-width: 100%; display: block; }
   transform: translateY(0);
 }
 
-/* Reduced-motion: disable animations */
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
 @media (prefers-reduced-motion: reduce) {
   .fade-in {
     opacity: 1;
@@ -623,6 +868,19 @@ img { max-width: 100%; display: block; }
     animation: none;
   }
   .carousel__track {
+    transition: none;
+  }
+  .glow-pulse,
+  .glow-pulse--green,
+  .glow-pulse--red {
+    animation: none;
+  }
+  .skill-tree--animate .skill-tree__top,
+  .skill-tree--animate .skill-tree__connector,
+  .skill-tree--animate .skill-box--green,
+  .skill-tree--animate .skill-box--red {
+    opacity: 1;
+    transform: none;
     transition: none;
   }
 }

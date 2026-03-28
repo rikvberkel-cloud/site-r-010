@@ -23,13 +23,22 @@
 </head>
 <body>
 
+  <!-- Cursor glow (desktop only, moved by JS) -->
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- Scanlines overlay -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- Noise texture overlay -->
+  <div class="noise" aria-hidden="true"></div>
+
   <!-- ============================================
        HERO
        ============================================ -->
-  <section class="hero" id="hero">
+  <section class="hero" id="hero" data-parallax="0.3">
     <div class="hero__content">
       <h1 class="hero__title neon-text">R-010</h1>
-      <p class="hero__subtitle">Spliff Daddy</p>
+      <p class="hero__subtitle gradient-text">Spliff Daddy</p>
       <!-- KEUZE 1: -->
       <p class="hero__tagline">Rotterdam's finest — draait met liefde, boekt zonder poespas.</p>
       <!-- KEUZE 2 (verberg of wissel):
@@ -38,7 +47,6 @@
 
       <!-- GENRE TAGS -->
       <div class="genre-tags">
-        <!-- TODO: Vervang # door je Spotify playlist URLs -->
         <a href="https://open.spotify.com/playlist/6vOpbanOj8kMaIDSkkobG8?si=ckpwqJuDSN2oO83r56tTGg" class="genre-tag" target="_blank" rel="noopener" aria-label="90's Dance playlist op Spotify">90's Dance</a>
         <a href="https://open.spotify.com/playlist/0wihgNsvUCuYe4vIcIEJX1?si=3cS-B206Rn-29Z3sIm3BwA" class="genre-tag" target="_blank" rel="noopener" aria-label="Italo Disco playlist op Spotify">Italo Disco</a>
         <a href="https://open.spotify.com/playlist/3SSnkNHaZYFEnFsS2uNzvc?si=Rkkg8hDzQoSK9qMRm84tKg" class="genre-tag" target="_blank" rel="noopener" aria-label="UK Garage playlist op Spotify">UK Garage</a>
@@ -58,7 +66,7 @@
       <div class="about-grid">
 
         <!-- FOTO: vervang assets/hero.jpg door je eigen foto (zelfde bestandsnaam houden) -->
-        <div class="photo-frame" id="photo-about">
+        <div class="photo-frame glow-pulse" id="photo-about">
           <img
             src="assets/hero.jpg"
             alt="Portretfoto van R-010"
@@ -74,10 +82,10 @@
           <p>Eigenlijk altijd al DJ geweest.</p>
           <p>DJ zijn vraagt vier dingen:</p>
 
-          <!-- VISUELE SKILL TREE -->
-          <div class="skill-tree" aria-label="DJ skill tree: Looks, Image en Song selection op groen, Techniek op rood">
+          <!-- VISUELE SKILL TREE (animates on scroll) -->
+          <div class="skill-tree skill-tree--animate" aria-label="DJ skill tree: Looks, Image en Song selection op groen, Techniek op rood">
             <div class="skill-tree__top">
-              <div class="skill-box skill-box--result">Je bent een DJ</div>
+              <div class="skill-box skill-box--result glow-pulse glow-pulse--green">Je bent een DJ</div>
             </div>
             <div class="skill-tree__connector" aria-hidden="true">
               <div class="connector-line connector-line--vertical"></div>
@@ -91,7 +99,7 @@
               <div class="skill-box skill-box--green">Looks</div>
               <div class="skill-box skill-box--green">Image</div>
               <div class="skill-box skill-box--green">Song selection</div>
-              <div class="skill-box skill-box--red">Techniek</div>
+              <div class="skill-box skill-box--red glow-pulse glow-pulse--red">Techniek</div>
             </div>
           </div>
 
@@ -105,7 +113,7 @@
   <!-- ============================================
        ROTTERDAM
        ============================================ -->
-  <section class="section section--alt" id="rotterdam">
+  <section class="section section--alt" id="rotterdam" data-parallax="0.15">
     <div class="container">
       <h2 class="section__heading neon-text">Rotterdam</h2>
       <div class="fade-in">
@@ -118,7 +126,7 @@
   </section>
 
   <!-- ============================================
-       EERDERE OPTREDENS (carrousel)
+       EERDERE OPTREDENS (carrousel + lightbox)
        ============================================ -->
   <section class="section" id="optredens">
     <div class="container">
@@ -133,7 +141,7 @@
             FOTO: vervang assets/gig.jpg (zelfde bestandsnaam houden)
           -->
           <div class="carousel__slide" data-gig="Yearly — bedrijfsfeest">
-            <div class="photo-frame photo-frame--landscape">
+            <div class="photo-frame photo-frame--landscape glow-pulse" data-lightbox="assets/gig.jpg">
               <img
                 src="assets/gig.jpg"
                 alt="Foto van optreden — Yearly bedrijfsfeest"
@@ -151,7 +159,7 @@
             FOTO: vervang assets/gig-2.jpg (zelfde bestandsnaam houden)
           -->
           <div class="carousel__slide" data-gig="Familieweekend 2026">
-            <div class="photo-frame photo-frame--landscape">
+            <div class="photo-frame photo-frame--landscape glow-pulse" data-lightbox="assets/gig-2.jpg">
               <img
                 src="assets/gig-2.jpg"
                 alt="Foto van optreden — Familieweekend 2026"
@@ -182,9 +190,68 @@
   </section>
 
   <!-- ============================================
+       SPOTIFY EMBED
+       ============================================ -->
+  <section class="section section--alt" id="luister">
+    <div class="container">
+      <h2 class="section__heading neon-text">Luister</h2>
+      <div class="spotify-grid fade-in">
+        <div class="spotify-embed">
+          <p class="spotify-label">90's Dance</p>
+          <iframe
+            style="border-radius:12px"
+            src="https://open.spotify.com/embed/playlist/6vOpbanOj8kMaIDSkkobG8?utm_source=generator&theme=0"
+            width="100%" height="152"
+            frameBorder="0"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="90's Dance playlist"
+          ></iframe>
+        </div>
+        <div class="spotify-embed">
+          <p class="spotify-label">Italo Disco</p>
+          <iframe
+            style="border-radius:12px"
+            src="https://open.spotify.com/embed/playlist/0wihgNsvUCuYe4vIcIEJX1?utm_source=generator&theme=0"
+            width="100%" height="152"
+            frameBorder="0"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Italo Disco playlist"
+          ></iframe>
+        </div>
+        <div class="spotify-embed">
+          <p class="spotify-label">UK Garage</p>
+          <iframe
+            style="border-radius:12px"
+            src="https://open.spotify.com/embed/playlist/3SSnkNHaZYFEnFsS2uNzvc?utm_source=generator&theme=0"
+            width="100%" height="152"
+            frameBorder="0"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="UK Garage playlist"
+          ></iframe>
+        </div>
+        <div class="spotify-embed">
+          <p class="spotify-label">Hard Tech</p>
+          <iframe
+            style="border-radius:12px"
+            src="https://open.spotify.com/embed/playlist/5kQzJcHHc57Rl9Vzh4SRj6?utm_source=generator&theme=0"
+            width="100%" height="152"
+            frameBorder="0"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Hard Tech playlist"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
        FAQ
        ============================================ -->
-  <section class="section section--alt" id="faq">
+  <section class="section" id="faq">
     <div class="container">
       <h2 class="section__heading neon-text">FAQ</h2>
       <div class="faq-list fade-in">
@@ -221,7 +288,7 @@
   <!-- ============================================
        CONTACT / BOEKEN
        ============================================ -->
-  <section class="section" id="contact">
+  <section class="section section--alt" id="contact">
     <div class="container">
       <h2 class="section__heading neon-text">Boeken / Contact</h2>
       <div class="contact-block fade-in">
@@ -261,6 +328,12 @@
   <footer class="footer">
     <p>&copy; R-010 — Rotterdam</p>
   </footer>
+
+  <!-- LIGHTBOX (populated by JS) -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto vergroting" hidden>
+    <button class="lightbox__close" id="lightboxClose" aria-label="Sluit foto">&times;</button>
+    <img class="lightbox__img" id="lightboxImg" src="" alt="">
+  </div>
 
   <script src="main.js"></script>
 </body>
