@@ -61,6 +61,34 @@
   });
 
   /* ------------------------------------------
+     2b. CTA CONTACT BUTTON (copies email)
+     ------------------------------------------ */
+  var ctaContact = document.getElementById('ctaContact');
+
+  if (ctaContact) {
+    ctaContact.addEventListener('click', function () {
+      var addr = emailEl.textContent.trim();
+      var isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr);
+      var isPlaceholder = addr === 'boekingen@r-010.nl';
+
+      if (isValid && !isPlaceholder) {
+        window.location.href = 'mailto:' + addr;
+      } else {
+        navigator.clipboard.writeText(addr).then(function () {
+          ctaContact.textContent = 'Mailadres gekopieerd!';
+          ctaContact.classList.add('btn--copied');
+          setTimeout(function () {
+            ctaContact.textContent = 'Boek R-010';
+            ctaContact.classList.remove('btn--copied');
+          }, 2000);
+        }).catch(function () {
+          copyBtn.click();
+        });
+      }
+    });
+  }
+
+  /* ------------------------------------------
      3. CAROUSEL
      ------------------------------------------ */
   var track = document.getElementById('carouselTrack');
@@ -196,11 +224,9 @@
 
     function updateGlow() {
       if (!glowActive) return;
-      // Smooth interpolation
       currentX += (glowX - currentX) * 0.15;
       currentY += (glowY - currentY) * 0.15;
-      cursorGlow.style.left = currentX + 'px';
-      cursorGlow.style.top = currentY + 'px';
+      cursorGlow.style.transform = 'translate(' + (currentX - 160) + 'px,' + (currentY - 160) + 'px)';
       requestAnimationFrame(updateGlow);
     }
   }

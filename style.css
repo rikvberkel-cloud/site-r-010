@@ -99,7 +99,8 @@ img { max-width: 100%; display: block; }
   );
   pointer-events: none;
   z-index: 9996;
-  transform: translate(-50%, -50%);
+  left: 0;
+  top: 0;
   opacity: 0;
   transition: opacity .3s ease;
   will-change: transform;
@@ -476,6 +477,16 @@ img { max-width: 100%; display: block; }
   grid-template-columns: repeat(4, 1fr);
   gap: .5rem;
   width: 100%;
+}
+
+@media (max-width: 480px) {
+  .skill-tree__bottom {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .skill-tree__connector {
+    display: none;
+  }
 }
 
 .skill-box {
