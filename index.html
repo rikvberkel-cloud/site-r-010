@@ -124,63 +124,38 @@
   <!-- ============================================
        EERDERE OPTREDENS (carrousel + lightbox)
        ============================================ -->
-  <section class="section" id="optredens">
+  <section class="section" id="agenda">
     <div class="container">
-      <h2 class="section__heading neon-text">Eerdere optredens</h2>
+      <h2 class="section__heading neon-text">Agenda</h2>
 
-      <!-- FOTO CARROUSEL -->
-      <div class="carousel fade-in" aria-label="Foto's van optredens">
-        <div class="carousel__track" id="carouselTrack">
-
-          <!--
-            OPTREDEN 1: Yearly bedrijf
-            FOTO: vervang assets/gig.jpg (zelfde bestandsnaam houden)
-          -->
-          <div class="carousel__slide" data-gig="JAN '26 - Bedrijfsfeest REL">
-            <div class="photo-frame photo-frame--landscape glow-pulse" data-lightbox="assets/gig.jpg">
-              <img
-                src="assets/gig.jpg"
-                alt="Foto van optreden — JAN '26 Bedrijfsfeest REL"
-                class="photo-frame__img"
-                loading="lazy"
-                onerror="this.parentElement.classList.add('photo-frame--fallback')"
-              >
-              <div class="photo-frame__placeholder" aria-hidden="true">gig.jpg</div>
-            </div>
-            <p class="carousel__caption">JAN '26 - Bedrijfsfeest REL</p>
-          </div>
+      <!-- TOURDATA -->
+      <div class="agenda fade-in" aria-label="Agenda met optredens">
+        <p class="agenda__year">2026</p>
+        <ul class="agenda__list">
 
           <!--
-            OPTREDEN 2: Familieweekend 2026
-            FOTO: vervang assets/gig-2.jpg (zelfde bestandsnaam houden)
+            NIEUWE DATUM TOEVOEGEN: kopieer een <li> hieronder.
+            datum (DD-MM) | vlag + plaats | naam van het optreden
           -->
-          <div class="carousel__slide" data-gig="MRT '26 - Familieweekend">
-            <div class="photo-frame photo-frame--landscape glow-pulse" data-lightbox="assets/gig-2.jpg">
-              <img
-                src="assets/gig-2.jpg"
-                alt="Foto van optreden — MRT '26 Familieweekend"
-                class="photo-frame__img"
-                loading="lazy"
-                onerror="this.parentElement.classList.add('photo-frame--fallback')"
-              >
-              <div class="photo-frame__placeholder" aria-hidden="true">gig-2.jpg</div>
-            </div>
-            <p class="carousel__caption">MRT '26 - Familieweekend</p>
-          </div>
+          <li class="agenda__row">
+            <span class="agenda__date">09-01</span>
+            <span class="agenda__location"><span class="agenda__flag">🇳🇱</span> Amsterdam</span>
+            <span class="agenda__event">Bedrijfsfeest REL</span>
+          </li>
 
-          <!--
-            MEER OPTREDENS TOEVOEGEN:
-            Kopieer een <div class="carousel__slide"> blok hierboven,
-            voeg een nieuwe afbeelding toe als assets/gig-3.jpg, etc.
-          -->
-        </div>
+          <li class="agenda__row">
+            <span class="agenda__date">28-03</span>
+            <span class="agenda__location"><span class="agenda__flag">🇳🇱</span> Putten</span>
+            <span class="agenda__event">Familieweekend</span>
+          </li>
 
-        <!-- Carrousel navigatie -->
-        <div class="carousel__nav">
-          <button class="carousel__btn carousel__btn--prev" id="carouselPrev" aria-label="Vorige foto">&#8592;</button>
-          <div class="carousel__dots" id="carouselDots"></div>
-          <button class="carousel__btn carousel__btn--next" id="carouselNext" aria-label="Volgende foto">&#8594;</button>
-        </div>
+          <li class="agenda__row">
+            <span class="agenda__date">15-08</span>
+            <span class="agenda__location"><span class="agenda__flag">🇳🇱</span> Rotterdam</span>
+            <span class="agenda__event">Verjaardag Teupie &amp; Elsma</span>
+          </li>
+
+        </ul>
       </div>
     </div>
   </section>

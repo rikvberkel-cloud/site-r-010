@@ -619,6 +619,76 @@ img { max-width: 100%; display: block; }
 }
 
 /* ============================================
+   AGENDA / TOURDATA
+   ============================================ */
+.agenda__year {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--neon-yellow);
+  text-shadow: var(--glow-yellow);
+  margin-bottom: 1.5rem;
+}
+
+.agenda__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.agenda__row {
+  display: grid;
+  grid-template-columns: 90px 1fr 1.2fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 0.25rem;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  transition: background .2s ease, padding-left .2s ease;
+}
+
+.agenda__row:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.agenda__row:hover {
+  background: rgba(0, 229, 255, .05);
+  padding-left: .75rem;
+}
+
+.agenda__date {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--neon-cyan);
+  letter-spacing: .03em;
+}
+
+.agenda__location {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.agenda__flag {
+  margin-right: .4rem;
+}
+
+.agenda__event {
+  color: var(--text-muted);
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  .agenda__row {
+    grid-template-columns: 64px 1fr;
+    grid-template-areas:
+      "date location"
+      "date event";
+    gap: .15rem 1rem;
+  }
+  .agenda__date { grid-area: date; align-self: center; }
+  .agenda__location { grid-area: location; }
+  .agenda__event { grid-area: event; text-align: left; font-size: .9rem; }
+}
+
+/* ============================================
    CAROUSEL
    ============================================ */
 .carousel {
