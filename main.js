@@ -11,13 +11,18 @@
   var emailEl = document.getElementById('emailAddress');
   var linkEl = document.getElementById('emailLink');
 
-  function updateMailto() {
-    var addr = emailEl.textContent.trim();
-    var isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr);
-    // TODO: vervang boekingen@r-010.nl door het echte mailadres in index.html
-    var isPlaceholder = addr === 'boekingen@r-010.nl';
+  // Het zichtbare adres (boekingen@daddy.nl) is een vanity-adres.
+  // De mail wordt bezorgd op het echte adres uit data-mailto.
+  function mailTarget() {
+    var real = linkEl && linkEl.getAttribute('data-mailto');
+    return (real || emailEl.textContent).trim();
+  }
 
-    if (isValid && !isPlaceholder) {
+  function updateMailto() {
+    var addr = mailTarget();
+    var isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr);
+
+    if (isValid) {
       linkEl.href = 'mailto:' + addr;
       linkEl.removeAttribute('aria-disabled');
     } else {
@@ -34,7 +39,7 @@
   var copyBtn = document.getElementById('copyBtn');
 
   copyBtn.addEventListener('click', function () {
-    var addr = emailEl.textContent.trim();
+    var addr = mailTarget();
     navigator.clipboard.writeText(addr).then(function () {
       copyBtn.textContent = 'Gekopieerd!';
       copyBtn.classList.add('btn--copied');
@@ -67,138 +72,19 @@
 
   if (ctaContact) {
     ctaContact.addEventListener('click', function () {
-      var addr = emailEl.textContent.trim();
+      var addr = mailTarget();
       var isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr);
-      var isPlaceholder = addr === 'boekingen@r-010.nl';
 
-      if (isValid && !isPlaceholder) {
+      if (isValid) {
         window.location.href = 'mailto:' + addr;
       } else {
-        navigator.clipboard.writeText(addr).then(function () {
-          ctaContact.textContent = 'Mailadres gekopieerd!';
-          ctaContact.classList.add('btn--copied');
-          setTimeout(function () {
-            ctaContact.textContent = 'Boek R-010';
-            ctaContact.classList.remove('btn--copied');
-          }, 2000);
-        }).catch(function () {
-          copyBtn.click();
-        });
+        copyBtn.click();
       }
     });
   }
 
   /* ------------------------------------------
-     3. CAROUSEL
-     ------------------------------------------ */
-  var track = document.getElementById('carouselTrack');
-  var prevBtn = document.getElementById('carouselPrev');
-  var nextBtn = document.getElementById('carouselNext');
-  var dotsContainer = document.getElementById('carouselDots');
-  var slides = track ? track.querySelectorAll('.carousel__slide') : [];
-  var current = 0;
-
-  function buildDots() {
-    if (!dotsContainer || slides.length < 2) return;
-    for (var i = 0; i < slides.length; i++) {
-      var dot = document.createElement('button');
-      dot.className = 'carousel__dot' + (i === 0 ? ' carousel__dot--active' : '');
-      dot.setAttribute('aria-label', 'Ga naar foto ' + (i + 1));
-      dot.dataset.index = i;
-      dot.addEventListener('click', function () {
-        goTo(parseInt(this.dataset.index));
-      });
-      dotsContainer.appendChild(dot);
-    }
-  }
-
-  function goTo(index) {
-    if (index < 0) index = slides.length - 1;
-    if (index >= slides.length) index = 0;
-    current = index;
-    track.style.transform = 'translateX(-' + (current * 100) + '%)';
-    var dots = dotsContainer.querySelectorAll('.carousel__dot');
-    for (var i = 0; i < dots.length; i++) {
-      dots[i].classList.toggle('carousel__dot--active', i === current);
-    }
-  }
-
-  if (slides.length > 0) {
-    buildDots();
-    if (prevBtn) prevBtn.addEventListener('click', function () { goTo(current - 1); });
-    if (nextBtn) nextBtn.addEventListener('click', function () { goTo(current + 1); });
-
-    // Swipe support (touch)
-    var startX = 0;
-    track.addEventListener('touchstart', function (e) {
-      startX = e.touches[0].clientX;
-    }, { passive: true });
-    track.addEventListener('touchend', function (e) {
-      var diff = startX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 50) {
-        goTo(diff > 0 ? current + 1 : current - 1);
-      }
-    }, { passive: true });
-  }
-
-  /* ------------------------------------------
-     4. LIGHTBOX
-     ------------------------------------------ */
-  var lightbox = document.getElementById('lightbox');
-  var lightboxImg = document.getElementById('lightboxImg');
-  var lightboxClose = document.getElementById('lightboxClose');
-
-  function openLightbox(src, alt) {
-    lightboxImg.src = src;
-    lightboxImg.alt = alt || '';
-    lightbox.hidden = false;
-    // Force reflow then add visible class for transition
-    lightbox.offsetHeight;
-    lightbox.classList.add('lightbox--visible');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeLightbox() {
-    lightbox.classList.remove('lightbox--visible');
-    document.body.style.overflow = '';
-    setTimeout(function () {
-      lightbox.hidden = true;
-      lightboxImg.src = '';
-    }, 300);
-  }
-
-  // Click on photo frames with data-lightbox
-  document.querySelectorAll('[data-lightbox]').forEach(function (el) {
-    el.addEventListener('click', function () {
-      var src = this.getAttribute('data-lightbox');
-      var img = this.querySelector('img');
-      // Only open if image is loaded (not fallback)
-      if (img && !this.classList.contains('photo-frame--fallback')) {
-        openLightbox(src, img.alt);
-      }
-    });
-  });
-
-  if (lightboxClose) {
-    lightboxClose.addEventListener('click', closeLightbox);
-  }
-
-  // Close on backdrop click
-  if (lightbox) {
-    lightbox.addEventListener('click', function (e) {
-      if (e.target === lightbox) closeLightbox();
-    });
-  }
-
-  // Close on Escape
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && lightbox && !lightbox.hidden) {
-      closeLightbox();
-    }
-  });
-
-  /* ------------------------------------------
-     5. CURSOR GLOW (desktop only)
+     3. CURSOR GLOW (desktop only)
      ------------------------------------------ */
   var cursorGlow = document.getElementById('cursorGlow');
   var isTouch = window.matchMedia('(hover: none)').matches;
@@ -232,7 +118,7 @@
   }
 
   /* ------------------------------------------
-     6. PARALLAX SCROLLING
+     4. PARALLAX SCROLLING
      ------------------------------------------ */
   var parallaxSections = document.querySelectorAll('[data-parallax]');
 
@@ -262,7 +148,7 @@
   }
 
   /* ------------------------------------------
-     7. SKILL TREE SCROLL ANIMATION
+     5. SKILL TREE SCROLL ANIMATION
      ------------------------------------------ */
   var skillTree = document.querySelector('.skill-tree--animate');
 
@@ -282,7 +168,7 @@
   }
 
   /* ------------------------------------------
-     8. FADE-IN ON SCROLL (IntersectionObserver)
+     6. FADE-IN ON SCROLL (IntersectionObserver)
      ------------------------------------------ */
   if ('IntersectionObserver' in window) {
     var observer = new IntersectionObserver(function (entries) {
