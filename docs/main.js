@@ -188,4 +188,31 @@
       el.classList.add('fade-in--visible');
     });
   }
+
+  /* ------------------------------------------
+     7. SCROLL-SPY (actieve nav-link markeren)
+     ------------------------------------------ */
+  var navLinks = document.querySelectorAll('.site-nav__link');
+
+  if (navLinks.length && 'IntersectionObserver' in window) {
+    var spyTargets = [];
+    navLinks.forEach(function (link) {
+      var target = document.getElementById(link.getAttribute('href').slice(1));
+      if (target) spyTargets.push(target);
+    });
+
+    function setActive(id) {
+      navLinks.forEach(function (link) {
+        link.classList.toggle('site-nav__link--active', link.getAttribute('href') === '#' + id);
+      });
+    }
+
+    var spyObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+    spyTargets.forEach(function (t) { spyObserver.observe(t); });
+  }
 })();
